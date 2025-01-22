@@ -18,6 +18,9 @@ The hand-crafted methods were implemented as an experimental exercise to explore
 ### Method 2: Wavelet Transform
 •	Approach: Used 2D wavelet transform and HOG to detect edges and exclude skull structures.
 •	Results: Achieved 50.29% accuracy.
+Here is a diagram that summerizes all the method's steps:
+![Image](https://github.com/user-attachments/assets/8610b669-c940-4c1d-b236-9a58b4d88233)
+
 ## 2. Machine Learning (ML)
 ### Method: PCA + SVM
 •	Preprocessing: Images resized to 128x128, normalized, and reduced using PCA (50 components).
