@@ -7,6 +7,8 @@ from torch import nn, optim
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms, models
 from PIL import Image
+import matplotlib.pyplot as plt
+
 
 # Détection de l'appareil (CPU ou GPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -86,14 +88,8 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
-# Fonction pour entraîner le modèle
-import matplotlib.pyplot as plt
+# Fonction pour entraîner le modèle avec suivi des courbes et métriques d'apprentissage 
 
-# 5. Fonction pour entraîner le modèle avec suivi des courbes d'apprentissage
-from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
-import numpy as np
-
-# 5. Fonction pour entraîner le modèle avec suivi des métriques et courbes
 def train_model(model, criterion, optimizer, scheduler, num_epochs=10):
     history = {'train_loss': [], 'val_loss': [], 'train_acc': [], 'val_acc': []}  # Historique des pertes et exactitudes
     metrics_history = []  # Historique des métriques (précision, rappel, F1, matrice de confusion)
@@ -171,15 +167,15 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=10):
 
         print()
 
-    # Tracer les courbes d'apprentissage après l'entraînement
+    # Tracer les courbes d'apprentissage 
     plot_learning_curves(history)
 
-    # Afficher les métriques et matrices de confusion après l'entraînement
+    # Afficher les métriques et matrices de confusion 
     display_metrics(metrics_history)
 
     return model
 
-# 6. Fonction pour tracer les courbes d'apprentissage
+#  Fonction pour tracer les courbes d'apprentissage
 def plot_learning_curves(history):
     epochs = range(1, len(history['train_loss']) + 1)
 
@@ -205,7 +201,7 @@ def plot_learning_curves(history):
     plt.tight_layout()
     plt.show()
 
-# 7. Fonction pour afficher les métriques et matrices de confusion
+# Fonction pour afficher les métriques et matrices de confusion
 def display_metrics(metrics_history):
     print("\nMétriques et matrices de confusion pour chaque époque :\n")
     for entry in metrics_history:
@@ -215,5 +211,5 @@ def display_metrics(metrics_history):
         print(f"  F1-score : {entry['f1']:.4f}")
         print(f"  Matrice de confusion :\n{entry['conf_matrix']}\n")
 
-# 8. Entraîner le modèle
+############## Entraîner le modèle ##############################################################################
 model = train_model(model, criterion, optimizer, scheduler, num_epochs=10)
